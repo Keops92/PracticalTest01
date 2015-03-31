@@ -4,13 +4,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class PracticalTest01MainActivity extends Activity {
 
@@ -85,6 +88,20 @@ public class PracticalTest01MainActivity extends Activity {
 				
 			}
 		});
+		
+		Intent i = getIntent();
+		Bundle extra = i.getExtras();
+		if (extra != null) {
+			String button = extra.getString("BUTTON");
+			if (button.equals("OK")) {
+				Toast toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
+				toast.show();
+			} else {
+				Toast toast = Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		}
+		
 	}
 
 	@Override
@@ -108,10 +125,39 @@ public class PracticalTest01MainActivity extends Activity {
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
 		EditText emailText = (EditText)findViewById(R.id.emailText);
 		EditText phoneText = (EditText)findViewById(R.id.phoneText);
 		savedInstanceState.putString("EMAIL", emailText.getText().toString());
 		savedInstanceState.putString("PHONE", phoneText.getText().toString());
+		CheckBox emailCheckbox = (CheckBox)findViewById(R.id.emailCheckbox);
+		CheckBox phoneCheckbox = (CheckBox)findViewById(R.id.phoneCheckBox);
+		savedInstanceState.putBoolean("CHECK_EMAIL", emailCheckbox.isChecked());
+		savedInstanceState.putBoolean("CHECK_PHONE", phoneCheckbox.isChecked());
+		
+	}
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		EditText emailText = (EditText)findViewById(R.id.emailText);
+		EditText phoneText = (EditText)findViewById(R.id.phoneText);
+		CheckBox emailCheckbox = (CheckBox)findViewById(R.id.emailCheckbox);
+		CheckBox phoneCheckbox = (CheckBox)findViewById(R.id.phoneCheckBox);
+		
+		emailText.setText(savedInstanceState.getString("EMAIL"));
+		phoneText.setText(savedInstanceState.getString("PHONE"));
+		emailCheckbox.setChecked(savedInstanceState.getBoolean("CHECK_EMAIL"));
+		phoneCheckbox.setChecked(savedInstanceState.getBoolean("CHECK_PHONE"));
+	}
+	
+	public void gotoSecondary(View v) {
+		Intent i = new Intent(getBaseContext(), PracticalTest01SecondaryActivity.class);
+		CheckBox emailCheckbox = (CheckBox)findViewById(R.id.emailCheckbox);
+		CheckBox phoneCheckbox = (CheckBox)findViewById(R.id.phoneCheckBox);
+		i.putExtra("CHECK_EMAIL", emailCheckbox.isChecked());
+		i.putExtra("CHECK_PHONE", phoneCheckbox.isChecked());
+		startActivity(i);
 	}
 	
 }

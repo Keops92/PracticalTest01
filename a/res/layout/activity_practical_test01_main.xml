@@ -13,11 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="26dp"
+        android:saveEnabled="false"
         android:layout_marginTop="32dp" >
 
         <EditText
             android:id="@+id/emailText"
             android:layout_width="114dp"
+            android:saveEnabled="false"
             android:layout_height="wrap_content" >
 
             <requestFocus />
@@ -25,6 +27,7 @@
 
         <CheckBox
             android:id="@+id/emailCheckbox"
+            android:saveEnabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />
@@ -36,16 +39,19 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linearLayout1"
         android:layout_below="@+id/linearLayout1"
+        android:saveEnabled="false"
         android:layout_marginTop="29dp" >
 
         <EditText
             android:id="@+id/phoneText"
             android:layout_width="123dp"
+            android:saveEnabled="false"
             android:layout_height="wrap_content" />
 
         <CheckBox
             android:id="@+id/phoneCheckBox"
             android:layout_width="wrap_content"
+            android:saveEnabled="false"
             android:layout_height="wrap_content"
             android:text="" />
     </LinearLayout>
@@ -61,6 +67,7 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="gotoSecondary"
             android:text="Secondary activity" />
 
     </LinearLayout>
